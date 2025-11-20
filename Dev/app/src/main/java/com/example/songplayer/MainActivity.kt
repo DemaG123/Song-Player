@@ -2,6 +2,7 @@ package com.example.songplayer
 
 import android.os.Bundle
 import android.widget.ListView
+import android.widget.SimpleAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,9 +13,10 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.beust.klaxon.Klaxon
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Observateur {
 
     lateinit var liste : ListView
+    var monModele = Modele(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +30,10 @@ class MainActivity : AppCompatActivity() {
 
         liste = findViewById(R.id.liste)
 
-        val queue = Volley.newRequestQueue(this)
-        val url = "https://api.jsonbin.io/v3/b/69090376ae596e708f425664?meta=false"
+        monModele.ajouterObservateur(this)
 
+        /*val queue = Volley.newRequestQueue(this)
+        val url = "https://api.jsonbin.io/v3/b/69090376ae596e708f425664?meta=false"
 
         // Notre requête demande une String du serveur
         val stringRequest = StringRequest(
@@ -43,8 +46,18 @@ class MainActivity : AppCompatActivity() {
             { Toast.makeText(this, "That didn't work!", Toast.LENGTH_SHORT).show() })
 
         // Ajouter notre requête à la queue.
-        queue.add(stringRequest)
+        queue.add(stringRequest)*/
 
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        monModele!!.enleverObservateur(this)
+    }
+
+    override fun changement(nouvelleValeur: List<ListeChansons>) {
+
+        /*val adapter = SimpleAdapter(this, nouvelleValeur, )
+        liste.adapter = adapter*/
     }
 }
