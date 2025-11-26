@@ -22,7 +22,6 @@ import org.json.JSONArray
 class MainActivity : AppCompatActivity(), Observateur {
 
     lateinit var liste : ListView
-    val url = "https://api.jsonbin.io/v3/b/69090376ae596e708f425664?meta=false"
     var monModele = Modele(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,13 +38,13 @@ class MainActivity : AppCompatActivity(), Observateur {
 
         monModele.chercherChansons(liste)
 
-        //monModele.ajouterObservateur(this)
+        monModele.ajouterObservateur(this)
 
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        //monModele!!.enleverObservateur(this)
+        monModele!!.enleverObservateur(this)
     }
 
     override fun changement(nouvelleValeur: List<ListeChansons>) {

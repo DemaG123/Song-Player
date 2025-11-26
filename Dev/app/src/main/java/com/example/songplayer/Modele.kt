@@ -16,7 +16,7 @@ import org.json.JSONArray
 
 class Modele(var context : Context) : Sujet{
 
-    private lateinit var lesChansons: List<ListeChansons>
+    private lateinit var lesChansons: ListeChansons
     private var obs: Observateur? = null
 
     fun chercherChansons(liste: ListView) {
@@ -67,11 +67,11 @@ class Modele(var context : Context) : Sujet{
         }
     }
 
-    fun getUneChanson(): List<ListeChansons>? {
+    fun getUneChanson(): ListeChansons? {
         return lesChansons
     }
 
-    fun setValeur(lesChansons: List<ListeChansons>) {
+    fun setValeur(lesChansons: ListeChansons) {
         this.lesChansons = lesChansons
         avertirObservateurs()
     }
